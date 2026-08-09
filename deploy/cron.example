@@ -1,0 +1,5 @@
+# SIBUKA — cron untuk Laravel Scheduler
+# Salin ke crontab root atau user www-data:
+# crontab -e
+
+* * * * * cd /var/www/sibuka && php artisan schedule:run >> /dev/null 2>&1
