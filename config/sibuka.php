@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'school_name' => env('SIBUKA_SCHOOL_NAME', 'SMK TI Bali Global Klungkung'),
+    'school_name' => env('SIBUKA_FULLNAME', 'Sistem Informasi Buku Kasus'),
 
     'point_thresholds' => [
         'warning' => (int) env('SIBUKA_POINT_WARNING', -25),
