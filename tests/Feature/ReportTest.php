@@ -108,6 +108,32 @@ test('dashboard scopes data for wali kelas', function () {
     $response->assertViewHas('stats', fn ($stats) => $stats['total_siswa'] === 1);
 });
 
+test('dashboard stat cards count pelanggaran and prestasi separately by tanggal kejadian', function () {
+    $admin = User::factory()->create(['role' => UserRole::Admin]);
+    $student = createReportStudent();
+
+    CaseRecord::factory()->prestasi()->create([
+        'student_id' => $student->id,
+        'tanggal_kejadian' => now(),
+    ]);
+    CaseRecord::factory()->pelanggaran()->create([
+        'student_id' => $student->id,
+        'tanggal_kejadian' => now(),
+    ]);
+    CaseRecord::factory()->prestasi()->create([
+        'student_id' => $student->id,
+        'tanggal_kejadian' => now()->subMonth(),
+    ]);
+
+    $response = $this->actingAs($admin)->get(route('dashboard'));
+
+    $response->assertOk();
+    $response->assertSee('Pelanggaran Bulan Ini');
+    $response->assertDontSee('Kasus Bulan Ini');
+    $response->assertViewHas('stats', fn ($stats) => $stats['prestasi_bulan_ini'] === 1
+        && $stats['pelanggaran_bulan_ini'] === 1);
+});
+
 function createReportStudent(): Student
 {
     $jurusan = Jurusan::create(['kode' => 'RP', 'nama' => 'Report Jurusan']);

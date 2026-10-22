@@ -22,14 +22,15 @@ class DashboardController extends Controller
 
         $stats = [
             'total_siswa' => (clone $studentQuery)->active()->count(),
-            'kasus_bulan_ini' => (clone $caseQuery)
-                ->whereMonth('created_at', now()->month)
-                ->whereYear('created_at', now()->year)
+            'pelanggaran_bulan_ini' => (clone $caseQuery)
+                ->where('kategori', CaseCategory::Pelanggaran)
+                ->whereMonth('tanggal_kejadian', now()->month)
+                ->whereYear('tanggal_kejadian', now()->year)
                 ->count(),
             'prestasi_bulan_ini' => (clone $caseQuery)
                 ->where('kategori', CaseCategory::Prestasi)
-                ->whereMonth('created_at', now()->month)
-                ->whereYear('created_at', now()->year)
+                ->whereMonth('tanggal_kejadian', now()->month)
+                ->whereYear('tanggal_kejadian', now()->year)
                 ->count(),
             'perlu_perhatian' => (clone $studentQuery)
                 ->where('total_poin', '<=', config('sibuka.point_thresholds.warning'))

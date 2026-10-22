@@ -21,7 +21,7 @@
 
 <div class="row">
     <x-stat-card title="Total Siswa" :value="$stats['total_siswa']" icon="user-graduate" color="primary" />
-    <x-stat-card title="Kasus Bulan Ini" :value="$stats['kasus_bulan_ini']" icon="clipboard-list" color="danger" />
+    <x-stat-card title="Pelanggaran Bulan Ini" :value="$stats['pelanggaran_bulan_ini']" icon="exclamation-triangle" color="danger" />
     <x-stat-card title="Prestasi Bulan Ini" :value="$stats['prestasi_bulan_ini']" icon="award" color="success" />
     <x-stat-card title="Perlu Perhatian" :value="$stats['perlu_perhatian']" icon="exclamation-triangle" color="warning" />
 </div>

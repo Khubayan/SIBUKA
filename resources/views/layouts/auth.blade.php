@@ -13,21 +13,14 @@
 <body class="bg-gradient-primary">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
                 <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">SIBUKA</h1>
-                                        <p class="text-muted small mb-4">{{ config('sibuka.school_name') }}</p>
-                                    </div>
-                                    @yield('content')
-                                </div>
-                            </div>
+                    <div class="card-body p-4 p-sm-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-2">SIBUKA</h1>
+                            <p class="text-muted small mb-4">{{ config('sibuka.school_name') }}</p>
                         </div>
+                        @yield('content')
                     </div>
                 </div>
             </div>
