@@ -81,7 +81,11 @@
                         <tr>
                             <td>{{ $case->tanggal_kejadian->format('d/m/Y') }}</td>
                             <td>
-                                <a href="{{ route('students.show', $case->student) }}">{{ $case->student?->nama ?? '-' }}</a>
+                                @if($case->student)
+                                    <a href="{{ route('students.show', $case->student) }}">{{ $case->student->nama }}</a>
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
                             </td>
                             <td>{{ $case->student?->kelas?->nama ?? '-' }}</td>
                             <td>

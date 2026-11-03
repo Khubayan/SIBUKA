@@ -52,7 +52,11 @@
                                     <tr>
                                         <td>{{ $kasus->tanggal_kejadian->format('d/m/Y') }}</td>
                                         <td>
-                                            <a href="{{ route('students.show', $kasus->student) }}">{{ $kasus->student?->nama ?? '-' }}</a>
+                                            @if($kasus->student)
+                                                <a href="{{ route('students.show', $kasus->student) }}">{{ $kasus->student->nama }}</a>
+                                            @else
+                                                <span class="text-muted">-</span>
+                                            @endif
                                         </td>
                                         <td>
                                             @if(auth()->user()->isAdmin() || auth()->user()->isGuruBk())

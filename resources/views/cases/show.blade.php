@@ -42,9 +42,13 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <strong>Siswa:</strong>
-                        <a href="{{ route('students.show', $case->student) }}">{{ $case->student->nama }}</a>
-                        <br>
-                        <small class="text-muted">{{ $case->student->kelas?->nama }} — NIS {{ $case->student->nis }}</small>
+                        @if($case->student)
+                            <a href="{{ route('students.show', $case->student) }}">{{ $case->student->nama }}</a>
+                            <br>
+                            <small class="text-muted">{{ $case->student->kelas?->nama }} — NIS {{ $case->student->nis }}</small>
+                        @else
+                            <span class="text-muted">-</span>
+                        @endif
                     </div>
                     <div class="col-md-6">
                         <strong>Jenis Kasus:</strong> {{ $case->caseType?->kode }} — {{ $case->caseType?->nama }}<br>
