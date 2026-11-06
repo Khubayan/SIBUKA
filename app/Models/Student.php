@@ -28,6 +28,25 @@ class Student extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Student $student) {
+            if ($student->isForceDeleting()) {
+                $student->cases()->forceDelete();
+                $student->pointLogs()->delete();
+                $student->parents()->detach();
+            } else {
+                $student->cases()->delete();
+                $student->user?->update(['is_active' => false]);
+            }
+        });
+
+        static::restoring(function (Student $student) {
+            $student->cases()->onlyTrashed()->restore();
+            $student->user?->update(['is_active' => true]);
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

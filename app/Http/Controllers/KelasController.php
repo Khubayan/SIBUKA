@@ -62,8 +62,8 @@ class KelasController extends Controller
 
     public function destroy(Kelas $kelas): RedirectResponse
     {
-        if ($kelas->students()->exists()) {
-            return back()->with('error', 'Kelas tidak dapat dihapus karena masih memiliki siswa.');
+        if ($kelas->students()->withTrashed()->exists()) {
+            return back()->with('error', 'Kelas tidak dapat dihapus karena masih memiliki data siswa terkait.');
         }
 
         $kelas->delete();

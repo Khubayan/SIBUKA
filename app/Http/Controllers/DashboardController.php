@@ -63,7 +63,7 @@ class DashboardController extends Controller
 
     protected function scopedCaseQuery()
     {
-        $query = CaseRecord::query();
+        $query = CaseRecord::query()->whereHas('student');
 
         if (auth()->user()->isWaliKelas()) {
             $studentIds = $this->scopedStudentQuery()->pluck('id');

@@ -68,7 +68,7 @@ class CaseTypeController extends Controller
 
     public function destroy(CaseType $caseType): RedirectResponse
     {
-        if ($caseType->cases()->exists()) {
+        if ($caseType->cases()->withTrashed()->exists()) {
             return back()->with('error', 'Jenis kasus tidak dapat dihapus karena sudah digunakan.');
         }
 

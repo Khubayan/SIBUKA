@@ -26,6 +26,7 @@ class CaseController extends Controller
         $this->authorize('viewAny', CaseRecord::class);
 
         $cases = CaseRecord::query()
+            ->whereHas('student')
             ->with(['student.kelas', 'caseType', 'recorder'])
             ->when($request->search, function ($q, $search) {
                 $q->where(function ($q) use ($search) {
@@ -99,6 +100,10 @@ class CaseController extends Controller
     {
         $this->authorize('update', $caseRecord);
 
+        if (! $caseRecord->student) {
+            abort(404, 'Data siswa untuk kasus ini tidak ditemukan atau sudah dihapus.');
+        }
+
         return view('cases.edit', array_merge(
             ['case' => $caseRecord],
             $this->formData($caseRecord->student_id)
@@ -130,6 +135,10 @@ class CaseController extends Controller
     public function confirm(CaseRecord $caseRecord): RedirectResponse
     {
         $this->authorize('confirm', $caseRecord);
+
+        if (! $caseRecord->student) {
+            return back()->with('error', 'Kasus tidak dapat dikonfirmasi karena data siswa tidak ditemukan.');
+        }
 
         $this->caseService->confirm($caseRecord);
 

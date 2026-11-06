@@ -26,7 +26,10 @@ class PointService
         }
 
         $case->loadMissing('student');
-        $student = $case->student;
+        $student = $case->student ?? $case->student()->withTrashed()->first();
+        if (! $student) {
+            return;
+        }
         $poinSebelum = $student->total_poin;
         $poinSesudah = $poinSebelum + $case->poin;
 
@@ -52,7 +55,10 @@ class PointService
         }
 
         $case->loadMissing('student');
-        $student = $case->student;
+        $student = $case->student ?? $case->student()->withTrashed()->first();
+        if (! $student) {
+            return;
+        }
         $poinSebelum = $student->total_poin;
         $poinSesudah = $poinSebelum - $case->poin;
 
